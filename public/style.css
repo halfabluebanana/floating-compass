@@ -1,0 +1,158 @@
+html {
+  margin: 0; /* Default margin for consistent layout */
+}
+
+/* body styles */
+body {
+  color: var(--primary-color);
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 300;
+  font-style: normal;
+  /* cursor: none; Hides the default cursor */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* hr styles */
+hr {
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+  height: 1px;
+  opacity: 0.8;
+  color: var(--primary-color);
+}
+
+#permissions-container {
+  text-align: center;
+}
+
+.permission-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 30px;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.permission-button:hover {
+  background-color: #0056b3;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.permission-button:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Compass styles */
+.compass-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 5px solid #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #f0f0f0 90%, #ddd);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px auto; /* Center align */
+  overflow: hidden; /* Clip overflow if needed */
+}
+
+.compass-needle {
+  position: absolute;
+  width: 100px; /* Narrow body for the needle */
+  height: 100px; /* Length of the needle */
+  background: conic-gradient(#d32f2f 0deg 90deg, transparent 90deg 180deg); /* Sector effect */
+  clip-path: polygon(50% 50%, 100% 0, 100% 100%, 50% 50%); /* Make it a sector shape */
+  /* border-radius: 5px; Smooth edges */
+  transform-origin: center center;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+/* Compass center circle */
+.compass-center {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #333;
+  border-radius: 50%;
+  z-index: 10; /* Keep it above the needle */
+}
+
+/* Custom cursor styles
+#cursors {
+  margin: 0;
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.custom-cursor {
+  position: absolute;
+  z-index: 999;
+  width: 50px;
+  height: 10px;
+  background-color: black;
+  pointer-events: none;
+  transform-origin: 50% 0%;
+  border-radius: 1px;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.5);
+} */
+
+/* Container styles */
+.container {
+  display: inline-block;
+  min-height: 90vh;
+}
+
+/* Map holder styles */
+#mapholder {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -1000; /* Embed map at the bottom */
+  opacity: 30%;
+}
+
+#mapholder img {
+  width: 100%; /* Make image responsive */
+  height: 100%; /* Make image responsive */
+  object-fit: cover; /* Maintain aspect ratio */
+  position: absolute;
+  z-index: -1000;
+}
+
+/* Font family references */
+/* These are commented out but kept for reference */
+
+/*
+.ibm-plex-mono-thin { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: normal; }
+.ibm-plex-mono-extralight { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: normal; }
+.ibm-plex-mono-light { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: normal; }
+.ibm-plex-mono-regular { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: normal; }
+.ibm-plex-mono-medium { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: normal; }
+.ibm-plex-mono-semibold { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: normal; }
+.ibm-plex-mono-bold { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: normal; }
+.ibm-plex-mono-thin-italic { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: italic; }
+.ibm-plex-mono-extralight-italic { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: italic; }
+.ibm-plex-mono-light-italic { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: italic; }
+.ibm-plex-mono-regular-italic { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: italic; }
+.ibm-plex-mono-medium-italic { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: italic; }
+.ibm-plex-mono-semibold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: italic; }
+.ibm-plex-mono-bold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: italic; }
+*/
