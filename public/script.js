@@ -1,6 +1,9 @@
 // Initialize socket
 let socket = io();
 
+// Initialize socket
+let socket = io(4000);
+
 window.addEventListener("load", () => {
     let heading = 0; // Current device heading
 
