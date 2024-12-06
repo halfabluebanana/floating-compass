@@ -28,9 +28,9 @@ hr {
 }
 
 .permission-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position:absolute;
+  top: 50vh;
+  left: 50vw;
   transform: translate(-50%, -50%);
   padding: 15px 30px;
   font-size: 18px;
@@ -55,25 +55,25 @@ hr {
 
 /* Compass styles */
 .compass-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  border: 5px solid #333;
+  position:fixed;
+  width: 400px;
+  height: 400px;
+  border: 1px #333;
   border-radius: 50%;
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle, #f0f0f0 90%, #ddd);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 20px auto; /* Center align */
+  margin: 0px auto; /* Center align */
   overflow: hidden; /* Clip overflow if needed */
 }
 
 .compass-needle {
   position: absolute;
-  width: 100px; /* Narrow body for the needle */
+  width: 10px; /* Narrow body for the needle */
   height: 100px; /* Length of the needle */
-  background: conic-gradient(#d32f2f 0deg 90deg, transparent 90deg 180deg); /* Sector effect */
+  background: conic-gradient(transparent 0deg 90deg, transparent 90deg 180deg); /* Sector effect */
   clip-path: polygon(50% 50%, 100% 0, 100% 100%, 50% 50%); /* Make it a sector shape */
   /* border-radius: 5px; Smooth edges */
   transform-origin: center center;
@@ -84,11 +84,11 @@ hr {
 
 /* Compass center circle */
 .compass-center {
-  position: absolute;
+  position: sticky;
   width: 20px;
   height: 20px;
-  background-color: #333;
-  border-radius: 50%;
+  background-color: none;
+  border-radius: 10%;
   z-index: 10; /* Keep it above the needle */
 }
 
