@@ -1,66 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+let express = require("express");
+// let routes = require('./routes');
+let http = require("http");
 
-<head>
-    <meta charset="UTF-8">
-    <title>Geolocation Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=yes">
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
+let app = express();
+app.use("/", express.static("public"));
 
-</head>
-
-<body>
-    <div id="mapholder"></div>
-
-    <div id="permissions-container">
-        <button id="enable-permissions">Enable Permissions for Compass to access your location</button>
-    </div> 
-
-    <div id="compass" class="compass-container">
-        <div class="compass-needle"></div>
-        <div class="compass-center"></div>
-    </div>
-    <div class="coordinates" id="coordinates">Waiting for location...</div>
-
-    <!-- <div class="container">
-        <div id="cursors">
-            <div class="custom-cursor"></div>
-        </div> -->
-
-        <div id = "mapholder"></div>
-
-    
-        <h4>Geolocation</h4>
-        <p id="location">Latitude and Longitude will be displayed here.</p> -->
-
-        <!-- <h4>Mouse Cursor Coordinates</h4>
-        X-coordinate <input type="text" id="X">
-        <br><br>
-        Y-coordinate <input type="text" id="Y">
-        <br><br> -->
+const { SocketAddress } = require("net");
+let server = http.createServer(app);
+let io = require("socket.io");
+io = new io.Server(server);
 
 
-        <h4>Shadow Info</h4>
-        Shadow Angle (Azimuth) <input type="text" id="shadowAngle"> degrees<br><br>
-        Shadow Length <input type="text" id="shadowLength"> (relative to cursor height)<br><br>
-    </div>
+// Serve static files
+app.use(express.static(__dirname + '/public'));// Ensure your HTML, CSS, and JS are in the "public" folder
 
-    <div id="mapholder"></div>
-    <script>
-        const latlon = "8.04103749644471,98.81693667256101";
-        const img_url = `https://maps.googleapis.com/maps/api/staticmap?center=${latlon}&zoom=20&size=640x640&maptype=street&key=AIzaSyCuFG-NOikYAj9JOBS3oD_nhuSxlu_T8v4`;
-    
-        document.getElementById("mapholder").innerHTML = `<img src="${img_url}" alt="Static Map">`;
-    </script>
-    
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js" defer></script>
-</body>
+let userLocations = {};
 
-</html>
+io.on("connection", (socket) => {
+  console.log("We have a new client: " + socket.id);
+
+  socket.on('update location', (data) => {
+    console.log(`Location from ${socket.id}:`, data);
+
+    //save user's location
+    userLocations[socket.id] = data;
+
+    // Broadcast this user's location to all other clients
+    socket.broadcast.emit("locationUpdate", data);
+
+    // Broadcast the slider value to all other connected clients
+    // io.emit('updateSoundDuration', data);
+    // io.emit('message-share', data);
+  });
+
+
+  socket.on("disconnect", () => {
+    delete userLocations[socket.id];
+    console.log("A client has disconnected: " + socket.id);
+  });
+});
+
+// Start the server
+let PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+  module.exports = app;
+});
